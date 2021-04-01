@@ -2,6 +2,7 @@ package android.exercise.mini.interactions;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +21,11 @@ public class EditTitleActivity extends AppCompatActivity {
   // `private boolean isEditing = false;`
   // in onCreate() set `this.isEditing` to `true` once the user starts editing, set to `false` once done editing
   // in onBackPressed() check `if(this.isEditing)` to understand what to do
+
+  private void hideKeybaord(View v) {
+    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +48,24 @@ public class EditTitleActivity extends AppCompatActivity {
 
     // handle clicks on "start edit"
     fabStartEdit.setOnClickListener(v -> {
-      /*
-      TODO:
-      1. animate out the "start edit" FAB
-      2. animate in the "done edit" FAB
-      3. hide the static title (text-view)
-      4. show the editable title (edit-text)
-      5. make sure the editable title's text is the same as the static one
-      6. optional (HARD!) make the keyboard to open with the edit-text focused,
-          so the user can start typing without the need another click on the edit-text
+      /* TODO animate out the "start edit" FAB */
+      fabStartEdit.setVisibility(View.INVISIBLE);
 
-      to complete (1.) & (2.), start by just changing visibility. only add animations after everything else is ready
+      /* TODO animate in the "done edit" FAB */
+      fabEditDone.setVisibility(View.VISIBLE);
+
+      /* TODO hide the static title (text-view) */
+      textViewTitle.setVisibility(View.INVISIBLE);
+
+      /* TODO show the editable title (edit-text) */
+      editTextTitle.setVisibility(View.VISIBLE);
+
+      /* TODO make sure the editable title's text is the same as the static one */
+
+      /* TODO optional (HARD!) make the keyboard to open with the edit-text focused,
+          so the user can start typing without the need another click on the edit-text */
+
+      /* to complete (1.) & (2.), start by just changing visibility. only add animations after everything else is ready
        */
     });
 
@@ -60,14 +73,39 @@ public class EditTitleActivity extends AppCompatActivity {
     fabEditDone.setOnClickListener(v -> {
       /*
       TODO:
-      1. animate out the "done edit" FAB
-      2. animate in the "start edit" FAB
-      3. take the text from the user's input in the edit-text and put it inside the static text-view
-      4. show the static title (text-view)
-      5. hide the editable title (edit-text)
-      6. make sure that the keyboard is closed
+      1. animate out the "done edit" FAB */
+      fabEditDone.setVisibility(View.INVISIBLE);
 
-      to complete (1.) & (2.), start by just changing visibility. only add animations after everything else is ready
+      /*
+      TODO:
+      2. animate in the "start edit" FAB */
+      fabStartEdit.setVisibility(View.VISIBLE);
+
+      /*
+      TODO:
+      3. take the text from the user's input in the edit-text and put it inside the
+         static text-view */
+      textViewTitle.setText(editTextTitle.getText().toString());
+
+      /*
+      TODO:
+      4. show the static title (text-view) */
+      textViewTitle.setVisibility(View.VISIBLE);
+
+      /*
+      TODO:
+      5. hide the editable title (edit-text) */
+      editTextTitle.setVisibility(View.INVISIBLE);
+
+      /*
+      TODO:
+      6. make sure that the keyboard is closed */
+      hideKeybaord(fabEditDone);
+       /*
+
+      TODO:
+      to complete (1.) & (2.), start by just changing visibility.
+      only add animations after everything else is ready
        */
     });
   }
