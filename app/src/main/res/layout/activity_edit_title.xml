@@ -53,7 +53,7 @@
         app:srcCompat="@drawable/ic_baseline_done_24"
         android:layout_marginEnd="16dp"
         app:backgroundTint="@color/green_a400"
-        />
+        tools:ignore="OnClick" />
 
 
     <TextView
